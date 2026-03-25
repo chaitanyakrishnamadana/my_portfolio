@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=JetBrains+Mono:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-prime: 248 250 252;
+    --color-background: 248 250 252;
+    --color-surface: 255 255 255;
+    --color-text-main: 15 23 42;
+    --color-text-muted: 71 85 105;
+    --color-border: 203 213 225;
+    --color-accent: 234 179 8;
+  }
+  .dark {
+    --color-prime: 30 41 59;
+    --color-background: 15 23 42;
+    --color-surface: 30 41 59;
+    --color-text-main: 248 250 252;
+    --color-text-muted: 148 163 184;
+    --color-border: 51 65 85;
+    --color-accent: 234 179 8;
+  }
+  
+  body {
+    @apply bg-background text-textMain font-sans antialiased overflow-x-hidden transition-colors duration-500;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-full bg-accent text-white font-bold tracking-wider uppercase text-sm transition-all duration-300 hover:bg-yellow-400 hover:scale-105 active:scale-95 shadow-lg shadow-yellow-500/20 border border-transparent;
+  }
+  
+  .btn-outline {
+    @apply px-6 py-3 rounded-full bg-transparent text-accent font-bold tracking-wider uppercase text-sm transition-all duration-300 border border-accent hover:bg-accent hover:text-white hover:scale-105 active:scale-95;
+  }
+
+  .glass-card {
+    @apply bg-surface/60 backdrop-blur-md border border-borderC rounded-2xl p-6 transition-all duration-300 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1 relative overflow-hidden;
+  }
+  
+  .section-padding {
+    @apply py-20 md:py-32;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 md:px-12;
+  }
+
+  .heading-large {
+    @apply font-serif text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 inline-block relative z-10;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eab308;
+}
+
+/* Utilities */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-textMain to-textMuted;
+}
+.text-gradient-accent {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-yellow-500;
+}
