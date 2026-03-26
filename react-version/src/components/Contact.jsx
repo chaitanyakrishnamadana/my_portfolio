@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('idle');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    const formData = new FormData(e.target);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/krishnachaithanya312@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Accept': 'application/json'
+        },
+        body: formData
+      });
+
+      if (response.ok) {
+          setSubmitStatus('success');
+          e.target.reset();
+      } else {
+          setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section id="contact" className="section-padding">
       <div className="container-custom">
@@ -65,8 +96,9 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="flex-1"
           >
-            <form action="https://formsubmit.co/krishnachaithanya312@gmail.com" method="POST" className="glass-card flex flex-col gap-6">
+            <form onSubmit={handleSubmit} className="glass-card flex flex-col gap-6">
               {/* Added a hidden Subject field to improve the email title */}
+              <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_subject" value="New Portfolio Message!" />
               <input type="hidden" name="_template" value="basic" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -85,9 +117,17 @@ const Contact = () => {
                 <textarea name="message" required rows="5" placeholder="Feel free to reach out..." className="w-full bg-background border border-borderC rounded-lg px-4 py-3 text-textMain focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
               </div>
 
-              <button type="submit" className="btn-primary w-full flex justify-center items-center gap-2 mt-4">
-                SEND MESSAGE <Send size={18} />
+              <button type="submit" disabled={isSubmitting} className="btn-primary w-full flex justify-center items-center gap-2 mt-4 disabled:opacity-70 disabled:cursor-not-allowed">
+                {isSubmitting ? 'SENDING...' : (
+                  <>SEND MESSAGE <Send size={18} /></>
+                )}
               </button>
+              {submitStatus === 'success' && (
+                <p className="text-green-500 text-sm mt-2 text-center">Message sent successfully!</p>
+              )}
+              {submitStatus === 'error' && (
+                <p className="text-red-500 text-sm mt-2 text-center">Failed to send message. Please try again or email directly.</p>
+              )}
             </form>
           </motion.div>
 
