@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import virtualIcuImage from '../assets/images/image.png';
+import customGiftImage from '../assets/images/custom.png';
 
 const Projects = () => {
   const projects = [
@@ -20,7 +21,7 @@ const Projects = () => {
       date: "Recent",
       description: "An e-commerce platform dedicated to customized gifts. Features a dynamic product catalog, user authentication, and a seamless checkout experience designed to handle custom product options.",
       techStack: ["PHP", "JavaScript", "HTML", "CSS"],
-      image: "placeholder",
+      image: customGiftImage,
       github: "https://github.com/chaitanyakrishnamadana", // update with actual
       live: "#" // update with actual
     }
